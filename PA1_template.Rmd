@@ -41,7 +41,7 @@ stepsday<-ddply(datastepsdate,.(date),summarize,stepsperday=sum(steps))
 
 Plot the histogram of the total number of steps taken each day.
 ```{r histogram, echo=TRUE}
-hist(stepsday$stepsperday, col="red",xlab="number of steps taken per day", main="Histogram of steps taken per day")
+hist(stepsday$stepsperday, col="red",xlab="number of steps", main="Histogram of steps taken per day")
 ```
 
 Calculate the **mean**  and **median** total number of the steps taken per day
@@ -65,7 +65,7 @@ stepsperinterval<-ddply(stepsinterval,.(interval),summarize,stepsperinterval=mea
 1. Plot the 5-minute interval and the average number of steps taken, averaged across all days.
 
 ```{r plotstepsperinterval, echo=TRUE}
-plot(stepsperinterval, type="l", ylab="average of steps taken across all days")
+plot(stepsperinterval, type="l", ylab="average of number of steps" )
 ```
 
 Obtain the maximum number of steps.
