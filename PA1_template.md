@@ -53,7 +53,7 @@ stepsday<-ddply(datastepsdate,.(date),summarize,stepsperday=sum(steps))
 Plot the histogram of the total number of steps taken each day.
 
 ```r
-hist(stepsday$stepsperday, col="red",xlab="number of steps taken per day", main="Histogram of steps taken per day")
+hist(stepsday$stepsperday, col="red",xlab="number of steps", main="Histogram of steps taken per day")
 ```
 
 ![plot of chunk histogram](figure/histogram.png) 
@@ -148,7 +148,7 @@ stepsperinterval<-ddply(stepsinterval,.(interval),summarize,stepsperinterval=mea
 
 
 ```r
-plot(stepsperinterval, type="l", ylab="average of steps taken across all days")
+plot(stepsperinterval, type="l", ylab="average of number of steps" )
 ```
 
 ![plot of chunk plotstepsperinterval](figure/plotstepsperinterval.png) 
