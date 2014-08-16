@@ -192,33 +192,34 @@ stepsinf[["NA's"]]
 
 
 ```r
-Newsteps<-steps
-for(i in 1:length(steps)){
-        sp<-steps[i]
-        if(is.na(sp)){
-                day<-date[i]
+Newsteps<-steps                                                 ## Create a new list of steps
+for(i in 1:length(steps)){                                      ## The for loop run over the list of steps
+        sp<-steps[i]                                            ## select a specific number of steps from the list
+        if(is.na(sp)){                                          ## check if the speci number is NA
+                day<-date[i]                                    ## select the date from that specific number
                 MM<-meanandmedian[meanandmedian$date %in% c(day),] ## give the value of mean and median
-                                                                   ## for the specific day
-                Mean<-MM[["mean"]]
-                Median<-MM[["median"]]
-                if(is.na(Mean)){
-                        if(is.na(Median)){
-                                Int<-interval[i]
+                                                                   ## for the specific date
+                Mean<-MM[["mean"]]                              ## select the mean value for the specific date
+                Median<-MM[["median"]]                          ## select the median value for the specific date
+                if(is.na(Mean)){                                ## check if the mean is NA
+                        if(is.na(Median)){                      ## check if the median is NA
+                                Int<-interval[i]                ## select the interval from that specific number
                                 IS<-stepsperinterval[stepsperinterval$interval %in% c(Int),] ##give the value of
                                                                                              ## average of interval
-                                stp<-IS[["stepsperinterval"]]
+                                stp<-IS[["stepsperinterval"]]   ## select the steps per interterval for that interval
                                 }
-                        if (!is.na(Median)){
-                                stp<-Median
+                        if (!is.na(Median)){                    ## check if the median is not NA.
+                                stp<-Median                     ## call stp the median value. 
                                 }
-                        Newsteps[i]<-stp
+                        Newsteps[i]<-stp                        ## assigne the value stp(stepsperinterval/median) to
+                                                                ## new steps list
                         }
-                if(!is.na(Mean)){
-                        Newsteps[i]<-Mean
+                if(!is.na(Mean)){                               ## check if the mean is not NA.
+                        Newsteps[i]<-Mean                       ## assigne the value of mean to the new steps list
                         }
          }
-        if (!is.na(sp)){
-                Newsteps[i]<-steps[i]
+        if (!is.na(sp)){                                        ## check if the specific step value is not NA.
+                Newsteps[i]<-steps[i]                           ## assigne the value of specific to the new list
         }
 }
 ```
@@ -325,15 +326,16 @@ print(Newdatameanmedian)
 1. Create a new factor variable in the dataset with two levels - "weekday" and "weekend" indicating whether a given date is a weekday or weekend day.
 
 ```r
-days<-weekdays(date)
-weekdayandweekend<-days
-for(i in 1:length(days)){
-        day<-days[i]
-        if(day=="Monday"| day=="Tuesday"| day=="Wednesday" |day=="Thursday" | day=="Friday"){
-                weekdayandweekend[i]<-"weekday"
+days<-weekdays(date)                     ## change the date list to the names of weekday
+weekdayandweekend<-days                  ## create a new list
+for(i in 1:length(days)){                ## the for loop run over the days of the new list
+        day<-days[i]                     ## select a specific day from the new list
+        if(day=="Monday"| day=="Tuesday"| day=="Wednesday" |day=="Thursday" | day=="Friday"){ ##check if the day is
+                                                                                              ##weekday
+                weekdayandweekend[i]<-"weekday"  ## assign the tagline weekday to the day
         }
-        if(day=="Saturday" | day=="Sunday"){
-                weekdayandweekend[i]<-"weekend"
+        if(day=="Saturday" | day=="Sunday"){ ## check if the day is weekend
+                weekdayandweekend[i]<-"weekend" ## assign the tagline weekend to the day
         }
 }
 ```

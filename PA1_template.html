@@ -367,33 +367,34 @@ stepsinf[[&quot;NA&#39;s&quot;]]
 <li>For filling in all of the missing values in the dataset. We are going to use the mean/median for that day, or the mean for that 5-minute interval.</li>
 </ol>
 
-<pre><code class="r">Newsteps&lt;-steps
-for(i in 1:length(steps)){
-        sp&lt;-steps[i]
-        if(is.na(sp)){
-                day&lt;-date[i]
+<pre><code class="r">Newsteps&lt;-steps                                                 ## Create a new list of steps
+for(i in 1:length(steps)){                                      ## The for loop run over the list of steps
+        sp&lt;-steps[i]                                            ## select a specific number of steps from the list
+        if(is.na(sp)){                                          ## check if the speci number is NA
+                day&lt;-date[i]                                    ## select the date from that specific number
                 MM&lt;-meanandmedian[meanandmedian$date %in% c(day),] ## give the value of mean and median
-                                                                   ## for the specific day
-                Mean&lt;-MM[[&quot;mean&quot;]]
-                Median&lt;-MM[[&quot;median&quot;]]
-                if(is.na(Mean)){
-                        if(is.na(Median)){
-                                Int&lt;-interval[i]
+                                                                   ## for the specific date
+                Mean&lt;-MM[[&quot;mean&quot;]]                              ## select the mean value for the specific date
+                Median&lt;-MM[[&quot;median&quot;]]                          ## select the median value for the specific date
+                if(is.na(Mean)){                                ## check if the mean is NA
+                        if(is.na(Median)){                      ## check if the median is NA
+                                Int&lt;-interval[i]                ## select the interval from that specific number
                                 IS&lt;-stepsperinterval[stepsperinterval$interval %in% c(Int),] ##give the value of
                                                                                              ## average of interval
-                                stp&lt;-IS[[&quot;stepsperinterval&quot;]]
+                                stp&lt;-IS[[&quot;stepsperinterval&quot;]]   ## select the steps per interterval for that interval
                                 }
-                        if (!is.na(Median)){
-                                stp&lt;-Median
+                        if (!is.na(Median)){                    ## check if the median is not NA.
+                                stp&lt;-Median                     ## call stp the median value. 
                                 }
-                        Newsteps[i]&lt;-stp
+                        Newsteps[i]&lt;-stp                        ## assigne the value stp(stepsperinterval/median) to
+                                                                ## new steps list
                         }
-                if(!is.na(Mean)){
-                        Newsteps[i]&lt;-Mean
+                if(!is.na(Mean)){                               ## check if the mean is not NA.
+                        Newsteps[i]&lt;-Mean                       ## assigne the value of mean to the new steps list
                         }
          }
-        if (!is.na(sp)){
-                Newsteps[i]&lt;-steps[i]
+        if (!is.na(sp)){                                        ## check if the specific step value is not NA.
+                Newsteps[i]&lt;-steps[i]                           ## assigne the value of specific to the new list
         }
 }
 </code></pre>
@@ -499,15 +500,16 @@ print(Newdatameanmedian)
 <li>Create a new factor variable in the dataset with two levels - &ldquo;weekday&rdquo; and &ldquo;weekend&rdquo; indicating whether a given date is a weekday or weekend day.</li>
 </ol>
 
-<pre><code class="r">days&lt;-weekdays(date)
-weekdayandweekend&lt;-days
-for(i in 1:length(days)){
-        day&lt;-days[i]
-        if(day==&quot;Monday&quot;| day==&quot;Tuesday&quot;| day==&quot;Wednesday&quot; |day==&quot;Thursday&quot; | day==&quot;Friday&quot;){
-                weekdayandweekend[i]&lt;-&quot;weekday&quot;
+<pre><code class="r">days&lt;-weekdays(date)                     ## change the date list to the names of weekday
+weekdayandweekend&lt;-days                  ## create a new list
+for(i in 1:length(days)){                ## the for loop run over the days of the new list
+        day&lt;-days[i]                     ## select a specific day from the new list
+        if(day==&quot;Monday&quot;| day==&quot;Tuesday&quot;| day==&quot;Wednesday&quot; |day==&quot;Thursday&quot; | day==&quot;Friday&quot;){ ##check if the day is
+                                                                                              ##weekday
+                weekdayandweekend[i]&lt;-&quot;weekday&quot;  ## assign the tagline weekday to the day
         }
-        if(day==&quot;Saturday&quot; | day==&quot;Sunday&quot;){
-                weekdayandweekend[i]&lt;-&quot;weekend&quot;
+        if(day==&quot;Saturday&quot; | day==&quot;Sunday&quot;){ ## check if the day is weekend
+                weekdayandweekend[i]&lt;-&quot;weekend&quot; ## assign the tagline weekend to the day
         }
 }
 </code></pre>
